@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Calvin
   - Debbie
+  - DebbieMailed
+  - CalvinMailed
+  - LaughedTogether
   layers:
   - Default
   - TransparentFX

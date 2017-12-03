@@ -11,14 +11,23 @@ public class Behaviour : MonoBehaviour {
 //	private MeshRenderer mesh;
 	public GameObject[] calvinObjects;
 	public GameObject[] debbieObjects;
+	public GameObject[] debbieMail;
+	public GameObject[] calvinMail;
 
 	void Start () {
-//		mesh = GetComponent<MeshRenderer>();
-//		mesh.enabled = true;
-		//        mesh.material.color = new Color(1.0f, 0.0f, 1.0f);
 		calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
 		Debug.Log("Calvin found " + calvinObjects.Length);
         debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
+		// personal objects
+		calvinObjects [0].SetActive (false);
+		debbieObjects [0].SetActive (false);
+
+		// mail objects
+		calvinMail = GameObject.FindGameObjectsWithTag("CalvinMailed");
+		debbieMail = GameObject.FindGameObjectsWithTag("DebbieMailed");
+		calvinMail [0].SetActive (false);
+		debbieMail [0].SetActive (false);
+
 
 		if (calvinObjects.Length == 0) {
 			Debug.Log ("No game objects are tagged with Calvin");
@@ -26,23 +35,8 @@ public class Behaviour : MonoBehaviour {
 			foreach (GameObject g in calvinObjects)
 			{
 				Debug.Log(g.ToString());
-
-//				g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
 			}
 		}
-
-		calvinObjects [0].SetActive (false);
-		debbieObjects [0].SetActive (false);
-//		else
-//        {
-//            Debug.Log("Calvin found " + calvinObjects.Length);
-//            foreach (GameObject g in calvinObjects)
-//            {
-//                Debug.Log(g.ToString());
-//
-//                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
-//            }
-//        }
 		
         if (debbieObjects.Length == 0)
         {
@@ -69,20 +63,25 @@ public class Behaviour : MonoBehaviour {
 
 			calvinObjects [0].SetActive (true);
 			debbieObjects [0].SetActive (false);
-			Debug.Log ("*****Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
+			Debug.Log ("11111111 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 		} 
 		else if (bodies.Count == 2) {
 			Debug.Log ("Bodies count " + bodies.Count);
-
 			calvinObjects [0].SetActive (true);
 			debbieObjects [0].SetActive (true);
-			Debug.Log ("Calvin true, Debbie true");
+
+			calvinMail [0].SetActive (true);
+			debbieMail [0].SetActive (true);
+			Debug.Log ("22222222 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 		}
 		else if (bodies.Count == 0 ) {
 			Debug.Log ("Bodies count " + bodies.Count);
 
 			debbieObjects [0].SetActive (false);
 			calvinObjects [0].SetActive (false);
+
+			calvinMail [0].SetActive (false);
+			debbieMail [0].SetActive (false);
 		}
 	}
 
