@@ -14,52 +14,53 @@ public class BodyTemplate : MonoBehaviour {
 
     void Start () {
         mesh = GetComponent<MeshRenderer>();
-        mesh.material.color = new Color(1.0f, 0.0f, 1.0f);
+		mesh.enabled = true;
+//        mesh.material.color = new Color(1.0f, 0.0f, 1.0f);
 
         calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
-        debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
+//        debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
 
-        if (calvinObjects.Length == 0)
-        {
-            Debug.Log("No game objects are tagged with Calvin");
-        } else
-        {
-            Debug.Log("Calvin found " + calvinObjects.Length);
-            foreach (GameObject g in calvinObjects)
-            {
-                Debug.Log(g.ToString());
-                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
-            }
-        }
-
-
-
-        if (debbieObjects.Length == 0)
-        {
-            Debug.Log("No game objects are tagged with Debbie");
-        }
-        else
-        {
-            Debug.Log("Debbie found " + debbieObjects.Length);
-            foreach (GameObject g in debbieObjects)
-            {
-                Debug.Log(g.ToString());
-                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
-            }
-        }
+//        if (calvinObjects.Length == 0)
+//        {
+//            Debug.Log("No game objects are tagged with Calvin");
+//        } else
+//        {
+//            Debug.Log("Calvin found " + calvinObjects.Length);
+//            foreach (GameObject g in calvinObjects)
+//            {
+//                Debug.Log(g.ToString());
+//                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
+//            }
+//        }
+//
+//
+//
+//        if (debbieObjects.Length == 0)
+//        {
+//            Debug.Log("No game objects are tagged with Debbie");
+//        }
+//        else
+//        {
+//            Debug.Log("Debbie found " + debbieObjects.Length);
+//            foreach (GameObject g in debbieObjects)
+//            {
+//                Debug.Log(g.ToString());
+//                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
+//            }
+//        }
     }
 
 
     //wait for KinectManager to completely update first
     void LateUpdate () {
         //TODO Your code here
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            showPaused();
-        }
+//        if (Input.GetKeyDown(KeyCode.R))
+//        {
+//            showPaused();
+//        }
         if (bodies.Count > 0)
         {
-
+			showCalvin ();
             //some bodies, send orientation update
             GameObject thumbRight = bodies[0].GetJoint(Windows.Kinect.JointType.ThumbRight);
             GameObject handRight = bodies[0].GetJoint(Windows.Kinect.JointType.HandRight);
@@ -78,11 +79,12 @@ public class BodyTemplate : MonoBehaviour {
     }
 
     //shows objects with ShowOnPause tag
-    void showPaused()
+    void showCalvin()
     {
         foreach (GameObject g in calvinObjects)
         {
-            g.SetActive(true);
+//            g.SetActive(true);
+			g.GetComponent<Renderer> ().enabled = !g.GetComponent<Renderer> ().enabled;
         }
     }
 
