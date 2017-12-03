@@ -4,14 +4,15 @@ using UnityEngine;
 
 
 public class FlowerBehaviour : MonoBehaviour {
+    BodyTemplate body;
+    // Use this for initialization
+    void Start () {
 
-	// Use this for initialization
-	void Start () {
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             GetComponent<Renderer>().material.color = Color.red;

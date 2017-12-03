@@ -7,15 +7,27 @@ using NetworkIt;
 
 public class BodyTemplate : MonoBehaviour {
 
-    private List<BodyGameObject> bodies = new List<BodyGameObject>();
+    public List<BodyGameObject> bodies = new List<BodyGameObject>();
     private MeshRenderer mesh;
-    GameObject[] calvinObjects;
+    public GameObject[] calvinObjects;
 
     void Start () {
         mesh = GetComponent<MeshRenderer>();
         mesh.material.color = new Color(1.0f, 0.0f, 1.0f);
 
         calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
+        if (calvinObjects.Length == 0)
+        {
+            Debug.Log("No game objects are tagged with Calvin");
+        } else
+        {
+            Debug.Log("Calvin found");
+            foreach (GameObject g in calvinObjects)
+            {
+                Debug.Log(g.ToString());
+                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
+            }
+        }
     }
 
 
