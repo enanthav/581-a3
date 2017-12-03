@@ -9,19 +9,26 @@ public class BodyTemplate : MonoBehaviour {
 
     private List<BodyGameObject> bodies = new List<BodyGameObject>();
     private MeshRenderer mesh;
+    GameObject[] calvinObjects;
 
-	void Start () {
+    void Start () {
         mesh = GetComponent<MeshRenderer>();
         mesh.material.color = new Color(1.0f, 0.0f, 1.0f);
 
+        calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
     }
 
 
     //wait for KinectManager to completely update first
     void LateUpdate () {
         //TODO Your code here
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            showPaused();
+        }
         if (bodies.Count > 0)
         {
+
             //some bodies, send orientation update
             GameObject thumbRight = bodies[0].GetJoint(Windows.Kinect.JointType.ThumbRight);
             GameObject handRight = bodies[0].GetJoint(Windows.Kinect.JointType.HandRight);
@@ -39,7 +46,14 @@ public class BodyTemplate : MonoBehaviour {
         }
     }
 
-
+    //shows objects with ShowOnPause tag
+    void showPaused()
+    {
+        foreach (GameObject g in calvinObjects)
+        {
+            g.SetActive(true);
+        }
+    }
 
 
     void Kinect_BodyFound(object args)
