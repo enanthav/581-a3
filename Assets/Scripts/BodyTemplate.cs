@@ -10,19 +10,38 @@ public class BodyTemplate : MonoBehaviour {
     public List<BodyGameObject> bodies = new List<BodyGameObject>();
     private MeshRenderer mesh;
     public GameObject[] calvinObjects;
+    public GameObject[] debbieObjects;
 
     void Start () {
         mesh = GetComponent<MeshRenderer>();
         mesh.material.color = new Color(1.0f, 0.0f, 1.0f);
 
         calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
+        debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
+
         if (calvinObjects.Length == 0)
         {
             Debug.Log("No game objects are tagged with Calvin");
         } else
         {
-            Debug.Log("Calvin found");
+            Debug.Log("Calvin found " + calvinObjects.Length);
             foreach (GameObject g in calvinObjects)
+            {
+                Debug.Log(g.ToString());
+                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
+            }
+        }
+
+
+
+        if (debbieObjects.Length == 0)
+        {
+            Debug.Log("No game objects are tagged with Debbie");
+        }
+        else
+        {
+            Debug.Log("Debbie found " + debbieObjects.Length);
+            foreach (GameObject g in debbieObjects)
             {
                 Debug.Log(g.ToString());
                 g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
