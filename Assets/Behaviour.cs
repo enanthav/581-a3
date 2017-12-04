@@ -96,8 +96,6 @@ public class Behaviour : MonoBehaviour {
 				g.SetActive (false);
 			}
 			oakTrees [1].SetActive (true);
-			calvinMail [0].SetActive (false);
-			debbieMail [0].SetActive (false);
 //			Debug.Log ("11111111 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 		} 
 		else if (bodies.Count == 2) {
@@ -113,9 +111,7 @@ public class Behaviour : MonoBehaviour {
 //				Debug.Log(g.ToString());
 				g.SetActive (true);
 			}
-
-			calvinMail [0].SetActive (true);
-			debbieMail [0].SetActive (true);
+				
 			oakTrees [0].SetActive (true);
 //			Debug.Log ("22222222 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 		}
@@ -135,8 +131,6 @@ public class Behaviour : MonoBehaviour {
 				g.SetActive (false);
 			}
 
-			calvinMail [0].SetActive (false);
-			debbieMail [0].SetActive (false);
 		}
 
 		// *******************************
@@ -146,9 +140,12 @@ public class Behaviour : MonoBehaviour {
 		if (targetTime <= 0.0f) {
 			timerEnded ();
 		}
+
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			together [0].SetActive (true);
+			together [0].SetActive (!together [0].activeInHierarchy);
+			calvinMail [0].SetActive (!calvinMail [0].activeInHierarchy);
+			debbieMail [0].SetActive (!debbieMail [0].activeInHierarchy);
 		}
 	}
 
@@ -156,6 +153,8 @@ public class Behaviour : MonoBehaviour {
 
 	void timerEnded() {
 		Debug.Log ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TIMES UP!!!");
+		// number of positive thoughts revealed
+		// grow tree
 		oakTrees [1].transform.localScale = new Vector3 (3.0f, 3.0f, 3.0f);
 		// if the two people are still together for this long...
 		if (bodies.Count == 2) {
