@@ -8,19 +8,19 @@ using NetworkIt;
 public class Behaviour : MonoBehaviour {
 
 	public List<BodyGameObject> bodies = new List<BodyGameObject>();
-//	private MeshRenderer mesh;
 	public GameObject[] calvinObjects;
 	public GameObject[] debbieObjects;
 	public GameObject[] debbieMail;
 	public GameObject[] calvinMail;
+	public GameObject[] together;
+	public GameObject[] oakTrees;
+
+	public float targetTime = 5.0f;
 
 	void Start () {
-		calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
-		Debug.Log("Calvin found " + calvinObjects.Length);
-        debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
 		// personal objects
-		calvinObjects [0].SetActive (false);
-		debbieObjects [0].SetActive (false);
+		calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
+        debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
 
 		// mail objects
 		calvinMail = GameObject.FindGameObjectsWithTag("CalvinMailed");
@@ -28,13 +28,36 @@ public class Behaviour : MonoBehaviour {
 		calvinMail [0].SetActive (false);
 		debbieMail [0].SetActive (false);
 
+		// oak tree counters
+		oakTrees = GameObject.FindGameObjectsWithTag("Player");
+
+		// together objects
+		together = GameObject.FindGameObjectsWithTag("LaughedTogether");
+		together [0].SetActive (false);
+		Debug.Log("Together found " + together.Length);
+		Debug.Log("Together found " + together[0].ToString());
+
+
+		if (oakTrees.Length == 0) {
+			Debug.Log ("No game objects are tagged with player");
+		} else {
+			Debug.Log("Calvin found " + oakTrees.Length);
+			foreach (GameObject g in oakTrees)
+			{
+				Debug.Log(g.ToString());
+				g.SetActive (false);
+			}
+		}
+
 
 		if (calvinObjects.Length == 0) {
 			Debug.Log ("No game objects are tagged with Calvin");
 		} else {
+			Debug.Log("Calvin found " + calvinObjects.Length);
 			foreach (GameObject g in calvinObjects)
 			{
 				Debug.Log(g.ToString());
+				g.SetActive (false);
 			}
 		}
 		
@@ -45,11 +68,11 @@ public class Behaviour : MonoBehaviour {
         else
         {
             Debug.Log("Debbie found " + debbieObjects.Length);
-//            foreach (GameObject g in debbieObjects)
-//            {
-//                Debug.Log(g.ToString());
-//                g.GetComponent<Renderer>().enabled = !g.GetComponent<Renderer>().enabled;
-//            }
+            foreach (GameObject g in debbieObjects)
+            {
+                Debug.Log(g.ToString());
+				g.SetActive (false);
+            }
         }
 
 		Debug.Log ("++++++++Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
@@ -59,42 +82,88 @@ public class Behaviour : MonoBehaviour {
 	//wait for KinectManager to completely update first
 	void LateUpdate () {
 		if (bodies.Count == 1) {
-			Debug.Log ("Bodies count " + bodies.Count);
+//			Debug.Log ("Bodies count " + bodies.Count);
 
-			calvinObjects [0].SetActive (true);
-			debbieObjects [0].SetActive (false);
-			Debug.Log ("11111111 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
+			foreach (GameObject g in calvinObjects)
+			{
+//				Debug.Log(g.ToString());
+				g.SetActive (true);
+			}
+
+			foreach (GameObject g in debbieObjects)
+			{
+//				Debug.Log(g.ToString());
+				g.SetActive (false);
+			}
+			oakTrees [1].SetActive (true);
+			calvinMail [0].SetActive (false);
+			debbieMail [0].SetActive (false);
+//			Debug.Log ("11111111 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 		} 
 		else if (bodies.Count == 2) {
-			Debug.Log ("Bodies count " + bodies.Count);
-			calvinObjects [0].SetActive (true);
-			debbieObjects [0].SetActive (true);
+//			Debug.Log ("Bodies count " + bodies.Count);
+			foreach (GameObject g in calvinObjects)
+			{
+//				Debug.Log(g.ToString());
+				g.SetActive (true);
+			}
+
+			foreach (GameObject g in debbieObjects)
+			{
+//				Debug.Log(g.ToString());
+				g.SetActive (true);
+			}
 
 			calvinMail [0].SetActive (true);
 			debbieMail [0].SetActive (true);
-			Debug.Log ("22222222 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
+			oakTrees [0].SetActive (true);
+//			Debug.Log ("22222222 Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 		}
 		else if (bodies.Count == 0 ) {
-			Debug.Log ("Bodies count " + bodies.Count);
+//			Debug.Log ("Bodies count " + bodies.Count);
 
-			debbieObjects [0].SetActive (false);
-			calvinObjects [0].SetActive (false);
+			foreach (GameObject g in calvinObjects)
+			{
+//				Debug.Log(g.ToString());
+				g.SetActive (false);
+			}
+
+
+			foreach (GameObject g in debbieObjects)
+			{
+//				Debug.Log(g.ToString());
+				g.SetActive (false);
+			}
 
 			calvinMail [0].SetActive (false);
 			debbieMail [0].SetActive (false);
 		}
-	}
 
-	//shows objects with ShowOnPause tag
-	void showCalvin()
-	{
-		foreach (GameObject g in calvinObjects)
+		// *******************************
+		// PLACE HOLDER FOR CHEERS!!!!!!!
+		// *******************************
+		targetTime -= Time.deltaTime;
+		if (targetTime <= 0.0f) {
+			timerEnded ();
+		}
+		if (Input.GetKeyDown(KeyCode.R))
 		{
-			//            g.SetActive(true);
-			g.GetComponent<Renderer> ().enabled = !g.GetComponent<Renderer> ().enabled;
+			together [0].SetActive (true);
 		}
 	}
 
+
+
+	void timerEnded() {
+		Debug.Log ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TIMES UP!!!");
+		oakTrees [1].transform.localScale = new Vector3 (3.0f, 3.0f, 3.0f);
+		// if the two people are still together for this long...
+		if (bodies.Count == 2) {
+		// to do... reveal more data or grow tree...
+
+
+		}
+	}
 
 	void Kinect_BodyFound(object args)
 	{

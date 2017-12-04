@@ -9,6 +9,7 @@ TagManager:
   - DebbieMailed
   - CalvinMailed
   - LaughedTogether
+  - CalvinLaughed
   layers:
   - Default
   - TransparentFX
