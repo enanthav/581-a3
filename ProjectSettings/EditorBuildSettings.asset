@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Kinect+OpenCV3-2.unity
     guid: 01e82c25b9d01784aaa692b2593bc486
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Hygge Forest.unity
-    guid: 27be2e50e316e2f4099b18f44928bb49
+    path: Assets/Scenes/Hygge.unity
+    guid: 7c25996ba3d1f894a9a72e44261ff89f
