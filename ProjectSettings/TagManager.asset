@@ -10,6 +10,8 @@ TagManager:
   - CalvinMailed
   - LaughedTogether
   - CalvinLaughed
+  - TimePass
+  - Growth
   layers:
   - Default
   - TransparentFX

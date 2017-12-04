@@ -14,6 +14,9 @@ public class Behaviour : MonoBehaviour {
 	public GameObject[] calvinMail;
 	public GameObject[] together;
 	public GameObject[] oakTrees;
+	public GameObject[] deeper;
+	public GameObject[] growTrees;
+
 
 	public float targetTime = 5.0f;
 
@@ -31,12 +34,26 @@ public class Behaviour : MonoBehaviour {
 		// oak tree counters
 		oakTrees = GameObject.FindGameObjectsWithTag("Player");
 
+		// deeper knowledge objects
+		growTrees = GameObject.FindGameObjectsWithTag("Growth");
+		deeper = GameObject.FindGameObjectsWithTag("TimePass");
+
 		// together objects
 		together = GameObject.FindGameObjectsWithTag("LaughedTogether");
 		together [0].SetActive (false);
 		Debug.Log("Together found " + together.Length);
 		Debug.Log("Together found " + together[0].ToString());
 
+		if (deeper.Length == 0) {
+			Debug.Log ("No game objects are tagged with time pass");
+		} else {
+			Debug.Log("TimePass found " + deeper.Length);
+			foreach (GameObject g in deeper)
+			{
+				Debug.Log(g.ToString());
+				g.SetActive (false);
+			}
+		}
 
 		if (oakTrees.Length == 0) {
 			Debug.Log ("No game objects are tagged with player");
@@ -78,7 +95,24 @@ public class Behaviour : MonoBehaviour {
 		Debug.Log ("++++++++Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 	}
 
+	void FixedUpdate() {
+		targetTime -= Time.deltaTime;
+		if (targetTime <= 0.0f) {
+			timerEnded ();
+		}
 
+
+
+		// *******************************
+		// PLACE HOLDER FOR CHEERS!!!!!!!
+		// *******************************
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			together [0].SetActive (!together [0].activeInHierarchy);
+			calvinMail [0].SetActive (!calvinMail [0].activeInHierarchy);
+			debbieMail [0].SetActive (!debbieMail [0].activeInHierarchy);
+		}
+	}
 	//wait for KinectManager to completely update first
 	void LateUpdate () {
 		if (bodies.Count == 1) {
@@ -133,34 +167,28 @@ public class Behaviour : MonoBehaviour {
 
 		}
 
-		// *******************************
-		// PLACE HOLDER FOR CHEERS!!!!!!!
-		// *******************************
-		targetTime -= Time.deltaTime;
-		if (targetTime <= 0.0f) {
-			timerEnded ();
-		}
-
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			together [0].SetActive (!together [0].activeInHierarchy);
-			calvinMail [0].SetActive (!calvinMail [0].activeInHierarchy);
-			debbieMail [0].SetActive (!debbieMail [0].activeInHierarchy);
-		}
+	
 	}
 
 
-
+	// reveal more details about both viewer
 	void timerEnded() {
 		Debug.Log ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TIMES UP!!!");
-		// number of positive thoughts revealed
-		// grow tree
-		oakTrees [1].transform.localScale = new Vector3 (3.0f, 3.0f, 3.0f);
+
 		// if the two people are still together for this long...
-		if (bodies.Count == 2) {
-		// to do... reveal more data or grow tree...
+		if (bodies.Count == 0) {
+			// grow tree
+			growTrees [0].transform.localScale = new Vector3 (2.0f, 2.0f, 2.0f);
+			growTrees [1].transform.localScale = new Vector3 (2.0f, 2.0f, 2.0f);
 
-
+			// number of positive thoughts
+			// number of times laughed
+			// number of times said thank you
+			foreach (GameObject g in deeper)
+			{
+				//				Debug.Log(g.ToString());
+				g.SetActive (true);
+			}
 		}
 	}
 
