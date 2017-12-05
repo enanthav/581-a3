@@ -21,6 +21,7 @@ public class Behaviour : MonoBehaviour {
 	public float targetTime = 5.0f;
 
 	void Start () {
+		StartCoroutine(Wait());
 		// personal objects
 		calvinObjects = GameObject.FindGameObjectsWithTag("Calvin");
         debbieObjects = GameObject.FindGameObjectsWithTag("Debbie");
@@ -95,24 +96,16 @@ public class Behaviour : MonoBehaviour {
 		Debug.Log ("++++++++Calvin " + calvinObjects [0].activeInHierarchy + " Debbie " + debbieObjects [0].activeInHierarchy);
 	}
 
-	void FixedUpdate() {
-		targetTime -= Time.deltaTime;
-		if (targetTime <= 0.0f) {
-			timerEnded ();
-		}
 
-
-
-		// *******************************
-		// PLACE HOLDER FOR CHEERS!!!!!!!
-		// *******************************
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			together [0].SetActive (!together [0].activeInHierarchy);
-			calvinMail [0].SetActive (!calvinMail [0].activeInHierarchy);
-			debbieMail [0].SetActive (!debbieMail [0].activeInHierarchy);
-		}
+	IEnumerator Wait() {
+		print(Time.time);
+		yield return new WaitForSeconds(90);
+		timerEnded ();
+		print(Time.time);
 	}
+
+
+
 	//wait for KinectManager to completely update first
 	void LateUpdate () {
 		if (bodies.Count == 1) {
@@ -167,6 +160,16 @@ public class Behaviour : MonoBehaviour {
 
 		}
 
+		// *******************************
+		// PLACE HOLDER FOR CHEERS!!!!!!!
+		// *******************************
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			together [0].SetActive (!together [0].activeInHierarchy);
+			calvinMail [0].SetActive (!calvinMail [0].activeInHierarchy);
+			debbieMail [0].SetActive (!debbieMail [0].activeInHierarchy);
+		}
+
 	
 	}
 
@@ -178,8 +181,8 @@ public class Behaviour : MonoBehaviour {
 		// if the two people are still together for this long...
 		if (bodies.Count == 0) {
 			// grow tree
-			growTrees [0].transform.localScale = new Vector3 (2.0f, 2.0f, 2.0f);
-			growTrees [1].transform.localScale = new Vector3 (2.0f, 2.0f, 2.0f);
+			growTrees [0].transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
+			growTrees [1].transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 
 			// number of positive thoughts
 			// number of times laughed
